@@ -112,12 +112,42 @@ Some APIs are completely open, like MediaWiki (accessed via the wptools library)
 
 import tweepy
 
-consumer_key = 'YOUR CONSUMER KEY'
-consumer_secret = 'YOUR CONSUMER SECRET'
-access_token = 'YOUR ACCESS TOKEN'
-access_secret = 'YOUR ACCESS SECRET'
+consumer_key = 'YOUR CONSUMER KEY'/
+consumer_secret = 'YOUR CONSUMER SECRET'/
+access_token = 'YOUR ACCESS TOKEN'/
+access_secret = 'YOUR ACCESS SECRET'/
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_secret)
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)/
+auth.set_access_token(access_token, access_secret)/
 
-api = tweepy.API(auth)
+api = tweepy.API(auth)/
+
+Tweet data is stored in JSON format by Twitter. Getting tweet JSON data via tweet ID using Tweepy is described well in this StackOverflow answer. Note that setting the tweet_mode parameter to 'extended' in the get_status call, i.e., api.get_status(tweet_id, tweet_mode='extended'), can be useful.
+
+Also, note that the tweets corresponding to a few tweet IDs in the archive may have been deleted. Try-except blocks may come in handy here.
+
+## Do Not Include Your API Keys, Secrets, and Tokens in Your Submission
+Do not include your API keys, secrets, and tokens in your project submission. This is standard practice for APIs and public code.
+
+## Twitter's Rate Limit
+Twitter's API has a rate limit. Rate limiting is used to control the rate of traffic sent or received by a server. As per Twitter's rate limiting info page:
+
+Rate limits are divided into 15 minute intervals
+
+To query all of the tweet IDs in the WeRateDogs Twitter archive, 20-30 minutes of running time can be expected. Printing out each tweet ID after it was queried and using a code timer were both helpful for sanity reasons. Setting the wait_on_rate_limit and wait_on_rate_limit_notify parameters to True in the tweepy.api class is useful as well.
+
+## Writing and Reading Twitter JSON
+After querying each tweet ID, you will write its JSON data to the required tweet_json.txt file with each tweet's JSON data on its own line. You will then read this file, line by line, to create a pandas DataFrame that you will soon assess and clean. This Reading and Writing JSON to a File in Python article from Stack Abuse, will be useful.
+
+## Accessing Project Data Without a Twitter Account
+If you can't set up a Twitter developer account using the steps above, or you prefer not to create a Twitter account for some reason, you may instead follow the directions below to access the data necessary for the project. Note: We recommend that you follow the steps above to access the data using a Twitter developer account, because with the shortcut detailed below, you will miss practicing the valuable skill of gathering this data on your own. However, Twitter's updated process may not work for everyone, and we realize there are legitimate reasons that some students may prefer this approach, so we provide it to you here. You choose the approach to access the data that works best for you. This shortcut approach will certainly work for you to pass the project equally well.
+
+## Directions for accessing the Twitter data without actually creating a Twitter account:
+At the bottom of this page you can find two files you can download:
+
+- twitter_api.py: This is the Twitter API code to gather some of the required data for the project. Read the code and comments, understand how the code works, then copy and paste it into your notebook.
+- tweet_json.txt: This is the resulting data from twitter_api.py. You can proceed with the following part of "Gathering Data for this Project" on the Project Details page: "Then read this tweet_json.txt file line by line into a pandas DataFrame with (at minimum) tweet ID, retweet count, and favorite count."
+
+Supporting Materials
+ twitter_api.py
+ tweet_json.txt
